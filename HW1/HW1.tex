@@ -1,0 +1,227 @@
+\documentclass[a4paper]{article}
+\usepackage{amsmath, amsthm, amssymb, bm, graphicx, hyperref, mathrsfs}
+\usepackage{booktabs}
+\usepackage[affil-it]{authblk}
+\usepackage[backend=bibtex,style=numeric]{biblatex}
+
+\usepackage{geometry}
+\geometry{margin=1.5cm, vmargin={0pt,1cm}}
+\setlength{\topmargin}{-1cm}
+\setlength{\paperheight}{29.7cm}
+\setlength{\textheight}{25.3cm}
+
+\addbibresource{citation.bib}
+
+\begin{document}
+% =================================================
+\title{Numerical Analysis homework 1}
+
+\author{Yilin Chen 3230101092
+  \thanks{Electronic address: \texttt{yilinchen@zju.edu.cn}}}
+\affil{(Numerical Analysis, Math2301), Zhejiang University }
+
+
+\date{Due time:2025/9/30 \today}
+
+\maketitle
+
+% \begin{abstract}
+%     The abstract is not necessary for the theoretical homework, 
+%     but for the programming project, 
+%     you are encouraged to write one.      
+% \end{abstract}
+
+
+
+
+
+% ============================================
+\section*{I. Length of interval}
+
+\subsection*{I-a}
+
+The width of the interval at the nth step is $\dfrac{1}{2^{n-1}}$
+
+\subsection*{I-b}
+
+According to I-a, at the nth step, the distance $d$ between the root r and the midpoint of the interval is less than half of the interval, i.e.
+
+$$d < \dfrac{1}{2^{n-2}}$$
+
+$$0 \le \sup\limits_{n}d = \sup\limits_{n}\dfrac{1}{2^{n-2}} = 0$$
+
+so $$\sup\limits_{n} d = 0$$
+
+\section*{II. Accuracy guaranteed by $n$}
+
+Since the relative error is defined by $\dfrac{|c_n - r|}r$, where $c_n$ is the midpoint of the interval. It suffices to prove that 
+
+$$\dfrac{|c_n - r|}r < \epsilon \quad when \quad n \ge \frac{\log(b_0 - a_0) - \log \epsilon - \log a_0}{\log 2} - 1 $$
+
+Taking logarithms on the both side of the last equation, we obtain
+
+$$\epsilon \ge \dfrac{b_0 - a_0}{2^{n+1} a_0}$$
+
+From Problem I, we know that $|c_n - \alpha |< \dfrac12 Length \, of \, the \, interval = \dfrac{b_0 - a_0}{2^{n+1}}$
+
+Now, since $a_0 < r$, we have
+
+$$\dfrac{|c_n - \alpha |}{r} < \dfrac{b_0 - a_0}{2^{n+1} a_0} \le \epsilon$$
+
+\section*{III. Newton's method by hand calculator}
+
+We apply Newton's method with initial guess \( x_0 = -1 \). The iteration formula is:
+\[
+x_{n+1} = x_n - \frac{p(x_n)}{p'(x_n)}
+\]
+where \( p(x) = 4x^3 - 2x^2 + 3 \) and \( p'(x) = 12x^2 - 4x \).
+
+We perform four iterations. The results are summarized in the table below. Values are rounded to six decimal places for clarity.
+
+\begin{table}[h]
+\centering
+\begin{tabular}{ccccc}
+\toprule
+Iteration \( n \) & \( x_n \) & \( p(x_n) \) & \( p'(x_n) \) & \( x_{n+1} \) \\
+\midrule
+0 & -1.000000 & -3.000000 & 16.000000 & -0.812500 \\
+1 & -0.812500 & -0.465820 & 11.171875 & -0.770805 \\
+2 & -0.770805 & -0.020145 & 10.212906 & -0.768832 \\
+3 & -0.768832 & -0.000056 & 10.168552 & -0.768827 \\
+\bottomrule
+\end{tabular}
+\caption{Newton's method iterations for \( p(x) = 4x^3 - 2x^2 + 3 \)}
+\end{table}
+
+\section*{IV. A variation of Newton's method}
+
+By Taylor's theorem,
+
+$$f(\alpha) = f(x_n) + (\alpha - x_n)f'(\xi)$$
+
+where $\xi$ is between $\alpha$ and $x_n$. Then $f(\alpha) = 0$ gives
+
+$$f(x_n) = (x_n -\alpha)f'(\xi)$$
+
+Now, since $x_{n+1} = x_n - \dfrac{f(x_n)}{f'(x_0)}$, we replace $f(x_n)$ by $(x_n -\alpha)f'(\xi)$ and yield
+
+$$x_{n+1} - \alpha = x_n - \alpha - (x_n - \alpha)\dfrac{f'(\xi)}{f'(x_0)}$$
+
+Let $n \rightarrow \infty$,
+
+$$\lim\limits_{n \rightarrow \infty}\dfrac{e_{n+1}}{e_n} = \lim\limits_{n \rightarrow \infty}\dfrac{x_{n+1}-\alpha}{x_n - \alpha} = 1 - \dfrac{f'(\alpha)}{f'(x_0)}$$
+
+i.e.
+
+$$s = 1, C = 1 - \dfrac{f'(\alpha)}{f'(x_0)}$$
+
+\section*{V. Convergence of iteration}
+
+To analyze convergence, I discuss it in three categories.
+
+\subsection*{Case 1: $0 < x_0 < \dfrac\pi2$}
+Since \(\tan^{-1}(x) < x\) for all \(x > 0\), the sequence \(\{x_n\}\) is strictly decreasing. Moreover, it is bounded below by 0 because \(\tan^{-1}(x) > 0\) for \(x > 0\). By the Monotone Convergence Theorem, the sequence converges to some limit \(L \geq 0\). Taking the limit in the recurrence \(x_{n+1} = \tan^{-1}(x_n)\), and using continuity of \(f\), we get \(L = \tan^{-1}(L)\). The only solution when $0 < L < \dfrac\pi2$ is \(L = 0\). Hence, the sequence converges to 0.
+
+\subsection*{Case 2: \(x_0 < 0\)}
+For \(x < 0\), we have \(\tan^{-1}(x) > x\), so the sequence is strictly increasing. It is bounded above by 0 because \(\tan^{-1}(x) < 0\) for \(x < 0\). Again, by monotonicity and boundedness, the sequence converges to a limit \(L \leq 0\), which must satisfy \(L = \tan^{-1}(L)\). The only solution when $-\dfrac\pi2 < L < 0$ is \(L = 0\). Thus, convergence to 0 occurs.
+
+\subsection*{Case 3: \(x_0 = 0\)}
+Then the sequence is constant at 0.
+
+Therefore, for any \(x_0 \in (-\frac{\pi}{2}, \frac{\pi}{2})\), the iteration \(x_{n+1} = \tan^{-1}(x_n)\) converges to 0.
+
+\section*{VI. Continued fraction}
+
+Let $x = \lim\limits_{n \rightarrow \infty} x_n$, where $x_1 = \dfrac1p, x_2 = \dfrac{1}{p+\dfrac1p}, ...$, obviously, $x_1 > x_3 > x_5 > ... > \dfrac1{p+1}, x_2 < x_4 < ... < 1$
+
+Now we have the recursion formula that
+
+$$x_{n} = \dfrac1{x_{n+1}}-p$$
+
+Thus
+$$x_n = \dfrac{1}{\dfrac{1}{x_{n+2}}-p}-p$$
+
+\subsection*{For $a_n = x_{2n+1}, n = 0, 1, 2, ...$}
+
+By the Monotone Convergence Theorem, the sequence $a_n$ converges to some limit \(L \geq 0\)
+
+Let $L = \dfrac{1}{\frac{1}{L}}-p$, the only solution satisfies $L > 0$ is $L = \dfrac{\sqrt{p^2+4}-p}{2}$
+
+\subsection*{For $b_n = x_{2n}, n = 1, 2, 3, ...$}
+
+Similarly, the only solution is $L = \dfrac{\sqrt{p^2+4}-p}{2}$.
+
+Therefore, $x = \lim\limits_{n \rightarrow \infty} x_n = \dfrac{\sqrt{p^2+4}-p}{2}$
+
+\section*{VII. Another situation of Problem II}
+
+The definition of relative error is $\dfrac{|c_n - r|}{|r|}(r \neq 0)$, where $c_n$ is the midpoint of the nth interval, r is the root.
+
+By method in Problem II, we only need to find $n$ that satisfies:
+
+$$\dfrac{|c_n - r|}{|r|} < \dfrac{b_0 - a_0}{2^{n+1}r} < \epsilon$$
+
+Take logarithms on the both side
+
+$$n > \dfrac{\log(b_0 - a_0) - \log\epsilon - \log|r|}{\log2} - 1$$
+
+Since $|r|$ is unknown, we cannot find a lower bound for $|r|$, and therefore cannot further simplify this expression.
+
+\section*{VIII. Function $f$ with a zero of multiplicity $k$}
+
+\subsection*{VIII-a}
+
+If $\alpha$ is a zero of multiplicity $k$ of the function $f$, $f^{(i)}(\alpha) = 0, i = 0, 1, ..., k-1$
+
+By Taylor's theorem,
+
+$$f(x) = f(\alpha) + ... +\dfrac{f^{(k)}(\alpha)}{k!}(x-\alpha)^{k} + \dfrac{f^{(k+1)}(\xi)}{(k+1)!}(x - \alpha)^{k+1}=\dfrac{f^{(k)}(\alpha)}{k!}(x-\alpha)^{k} + \dfrac{f^{(k+1)}(\xi)}{(k+1)!}(x - \alpha)^{k+1}$$
+
+Similarly,
+
+$$f'(x) = \dfrac{f^{(k)}(\alpha)}{(k-1)!}(x-\alpha)^{k-1} + \dfrac{f^{(k+1)}(\xi)}{k!}(x - \alpha)^{k}$$
+
+Because $x_{n+1} - \alpha = x_n - \alpha - \dfrac{f(x_n)}{f'(x_n)}$
+
+$$\dfrac{x_{n+1} - \alpha}{x_n - \alpha} = 1 - \dfrac{\dfrac{f^{(k)}(\alpha)}{k!}(x_n-\alpha)^{k} + \dfrac{f^{(k+1)}(\xi)}{(k+1)!}(x_n - \alpha)^{k+1}}{\dfrac{f^{(k)}(\alpha)}{(k-1)!}(x_n-\alpha)^{k} + \dfrac{f^{(k+1)}(\xi)}{k!}(x_n - \alpha)^{k+1}} = 1-\dfrac{f^{(k)}(\alpha)+\frac{f^{(k+1)}(\xi)}{k+1}(x_n - \alpha)}{k f^{(k)}(\alpha) + f^{(k+1)}(\xi)(x_n - \alpha)}$$
+
+Let $n \rightarrow \infty$,
+
+$$\lim\limits_{n\rightarrow\infty}\dfrac{x_{n+1}-\alpha}{x_n - \alpha} = 1-\dfrac1k$$
+
+Hence
+
+$$\dfrac{f(x_{n+1})}{f(x_n)} = \dfrac{\dfrac{f^{(k)}(\alpha)}{k!}(x_{n+1}-\alpha)^{k} + \dfrac{f^{(k+1)}(\xi_1)}{(k+1)!}(x_{n+1} - \alpha)^{k+1}}{\dfrac{f^{(k)}(\alpha)}{k!}(x_n-\alpha)^{k} + \dfrac{f^{(k+1)}(\xi_2)}{(k+1)!}(x_n - \alpha)^{k+1}} = \dfrac{(k+1)f^{(k)}(\alpha)(\dfrac{x_{n+1}-\alpha}{x_n-\alpha})^{k} + f^{(k+1)}(\xi_1)(\dfrac{x_{n+1} - \alpha}{x_n - \alpha})^k (x_{n+1} - \alpha)}{(k+1)f^{(k)}(\alpha) + f^{(k+1)}(\xi_2)(x_n - \alpha)}$$
+
+Let $n \rightarrow \infty$,
+
+$$\lim\limits_{n\rightarrow\infty}\dfrac{f(x_{n+1})}{f(x_n)} = (1 - \dfrac1k)^k$$
+
+That is, a multiple zero can be detected by calculating $\dfrac{f(x_{n+1})}{f(x_n)}$ for a sufficiently large iteration index $n$.
+
+\subsection*{VIII-b}
+
+Let $f(x) = (x-r)^kg(x)$,so $g(r),g'(r) \neq 0$.
+
+By the modification,
+
+$$\begin{aligned}
+    |e_{n+1}| & = |x_{n+1} - r|\\
+    & = |x_n - r - k \dfrac{(x_n - r)^k g(x_n)}{k(x_n - r)^{k-1}g(x_n) + (x_n - r)^k g'(x_n)}|\\
+    & = |e_n - e_n \dfrac{g(x_n)}{g(x_n)+\frac{x_n - r}{k}g'(x_n)}|\\
+    & = |e_n^2 \dfrac{g'(x_n)}{kg(x_n)+e_ng'(x_n)}|
+\end{aligned}$$
+
+i.e. 
+
+$$|\dfrac{e_{n+1}}{e^2_n}| = \dfrac{g'(r)}{kg(r)} > 0(n \rightarrow \infty)$$
+% ===============================================
+% \section*{ \center{\normalsize {Acknowledgement}} }
+% Give your acknowledgements here(if any).
+
+
+% \printbibliography
+
+% If you are not familiar with \texttt{bibtex}, 
+% it is acceptable to put a table here for your references.
+\end{document}
