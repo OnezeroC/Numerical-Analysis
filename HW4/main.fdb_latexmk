@@ -1,20 +1,20 @@
 # Fdb version 4
-["bibtex HW1"] 1758944521.72507 "HW1.aux" "HW1.bbl" "HW1" 1760722085.78474 0
-  "./HW1-blx.bib" 1758944816.31061 342 20d1170ef6c1d70c658d70e011e08dba ""
-  "./citation.bib" 1758805748.96102 2342 d754ede02c4d6fe0eba762a8ba74e801 ""
+["bibtex main"] 0 "main.aux" "main.bbl" "main" 1763391819.74143 0
+  "./main-blx.bib" 1763391819.15609 342 20d1170ef6c1d70c658d70e011e08dba ""
   "/usr/local/texlive/2025/texmf-dist/bibtex/bst/biblatex/biblatex.bst" 1711143581 65510 b1f696b0241395385f422f67543c37fd ""
-  "HW1.aux" 1758944816.30937 487 9a6cb7bbe484bec42da71a480a56836c "xelatex"
+  "citation.bib" 0 -1 0 ""
+  "main.aux" 0 -1 0 "xelatex"
   (generated)
-  "HW1.bbl"
-  "HW1.blg"
+  "main.bbl"
+  "main.blg"
   (rewritten before read)
-["xdvipdfmx"] 1760722085.48827 "HW1.xdv" "HW1.pdf" "HW1" 1760722085.78594 0
-  "HW1.xdv" 1758944816.31124 44552 9bab38363ba859a88a4ec626dbbfa281 "xelatex"
+["xdvipdfmx"] 1763391819.45089 "main.xdv" "main.pdf" "main" 1763391819.74254 0
+  "main.xdv" 1763391819.15676 26336 a415779f868e97023298e2163ac624a6 "xelatex"
   (generated)
-  "HW1.pdf"
+  "main.pdf"
   (rewritten before read)
-["xelatex"] 1758944815.60363 "/Users/onezero/Desktop/Numerical-Analysis/HW1/HW1.tex" "HW1.xdv" "HW1" 1760722085.78485 0
-  "/Users/onezero/Desktop/Numerical-Analysis/HW1/HW1.tex" 1760722085.2958 8655 0a372d9e0a3db680922c158f900aebb7 ""
+["xelatex"] 1763391818.41186 "/Users/onezero/Desktop/Numerical-Analysis/HW4/main.tex" "main.xdv" "main" 1763391819.74153 0
+  "/Users/onezero/Desktop/Numerical-Analysis/HW4/main.tex" 1763391818.19303 5577 6836148ee36f16b87869d2123aa320fb ""
   "/usr/local/texlive/2025/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/local/texlive/2025/texmf-dist/fonts/tfm/adobe/zapfding/pzdr.tfm" 1136768653 1528 f853c4d1b4e0550255e02831fdc8496f ""
   "/usr/local/texlive/2025/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmbsy5.tfm" 1246382020 1120 1e8878807317373affa7f7bba4cf2f6a ""
@@ -129,16 +129,16 @@
   "/usr/local/texlive/2025/texmf-dist/web2c/texmf.cnf" 1739380943 42148 61becc7c670cd061bb319c643c27fdd4 ""
   "/usr/local/texlive/2025/texmf-var/web2c/xetex/xelatex.fmt" 1758730809 5639806 784fa63e828520f4d12f578aef513de8 ""
   "/usr/local/texlive/2025/texmf.cnf" 1741450484 577 418a7058ec8e006d8704f60ecd22c938 ""
-  "HW1.aux" 1758944816.30937 487 9a6cb7bbe484bec42da71a480a56836c "xelatex"
-  "HW1.bbl" 1758944521.84752 519 9b1193ea42022b65f5e4436756b83bc1 "bibtex HW1"
-  "HW1.out" 1758944816.27001 0 d41d8cd98f00b204e9800998ecf8427e "xelatex"
-  "HW1.run.xml" 1758944816.31118 2546 24632685c67ef2f3ae6ac795ae59bfa9 "xelatex"
-  "HW1.tex" 1760722085.2958 8655 0a372d9e0a3db680922c158f900aebb7 ""
+  "main.aux" 1763391819.15488 297 b85852f4ad632af03c6450b09b39edef "xelatex"
+  "main.bbl" 0 -1 0 "bibtex main"
+  "main.out" 1763391819.11323 0 d41d8cd98f00b204e9800998ecf8427e "xelatex"
+  "main.run.xml" 1763391819.15669 2555 0f768ea2a1606789ae0c8d1df3b9c2e4 "xelatex"
+  "main.tex" 1763391818.19303 5577 6836148ee36f16b87869d2123aa320fb ""
   (generated)
-  "HW1-blx.bib"
-  "HW1.aux"
-  "HW1.log"
-  "HW1.out"
-  "HW1.run.xml"
-  "HW1.xdv"
+  "main-blx.bib"
+  "main.aux"
+  "main.log"
+  "main.out"
+  "main.run.xml"
+  "main.xdv"
   (rewritten before read)

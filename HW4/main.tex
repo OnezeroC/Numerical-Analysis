@@ -1,0 +1,176 @@
+\documentclass[a4paper]{article}
+\usepackage{amsmath, amsthm, amssymb, bm, graphicx, hyperref, mathrsfs}
+\usepackage{booktabs}
+\usepackage[affil-it]{authblk}
+\usepackage[backend=bibtex,style=numeric]{biblatex}
+
+\usepackage{geometry}
+\geometry{margin=1.5cm, vmargin={0pt,1cm}}
+\setlength{\topmargin}{-1cm}
+\setlength{\paperheight}{29.7cm}
+\setlength{\textheight}{25.3cm}
+
+\addbibresource{citation.bib}
+
+\begin{document}
+% =================================================
+\title{Numerical Analysis Homework XXX}
+
+\author{Yilin Chen 3230101092
+  \thanks{Electronic address: \texttt{yilinchen@zju.edu.cn}}}
+\affil{(Numerical Analysis, Math2301), Zhejiang University }
+
+
+\date{Due time:25/11/21 \today}
+
+\maketitle
+
+% \begin{abstract}
+%     The abstract is not necessary for the theoretical homework, 
+%     but for the programming project, 
+%     you are encouraged to write one.      
+% \end{abstract}
+
+
+
+
+
+% ============================================
+\section*{I. Convert a decimal integer to a normalzed FPN}
+
+Using Algorithm 4.8, calculate 
+
+$477 / 2 = 238 ... 1$
+
+$238 / 2 = 119 ... 0$
+
+$119 / 2 = 59 ... 1$
+
+$59 / 2 = 29 ... 1$
+
+$29 / 2 = 14 ... 1$
+
+$14 / 2 = 7 ... 0$
+
+$7 / 2 = 3 ... 1$
+
+$3 / 2 = 1 ... 1$
+
+$1 / 2 = 0 ... 1$
+
+we know $477 = (111011101)_2 = (1.11011101) \times 2^{8}$
+
+
+\section*{II. Convert a decimal fraction to a normalzed FPN}
+
+Using Algorithm 4.8, calculate
+
+$0.6 \times 2 = 1.2$, where the integer is $1$ and the decimal is $0.2$ 
+
+$0.2 \times 2 = 0.4$, where the integer is $0$ and the decimal is $0.4$
+
+$0.4 \times 2 = 0.8$, where the integer is $0$ and the decimal is $0.8$
+
+$0.8 \times 2 = 1.6$, where the integer is $1$ and the decimal is $0.6$
+
+$0.6 \times 2 = 1.2$, where the integer is $1$ and the decimal is $0.2$ (repeat)
+
+Thus, $\dfrac{3}{5} = (0.10011001\cdots)_2 = (1.00110011\cdots)_2 \times 2^{-1}$
+
+\section*{III. Adjacent FPNs}
+
+Since \( x \) is a normalized FPN, it can be written as:
+\[
+x = m \times \beta ^e, \quad \text{where } m = 1.
+\]
+The set of normalized FPNs in \( \mathcal F \) with exponent \( e \) consists of numbers of the form:
+\[
+m \times \beta^e, \quad \text{where } m = \frac{n}{\beta^{p-1}}, \quad n \in \{\beta^{p-1}, \beta^{p-1}+1, \dots, \beta^p - 1\}.
+\]
+The spacing between consecutive numbers in this exponent range is:
+\[
+\Delta_e = \frac{1}{\beta^{p-1}} \cdot \beta^e = \beta^{e-p+1}.
+\]
+Thus, the next number after \( x \) in exponent \( e \) is:
+\[
+Z_R = \left(1 + \frac{1}{\beta^{p-1}}\right) \beta^e = \beta^e + \beta^{e-p+1}.
+\]
+
+Now, consider numbers with exponent \( e-1 \). The normalized FPNs with exponent \( e-1 \) are:
+\[
+m \times \beta^{e-1}, \quad \text{with } m = \frac{n}{\beta^{p-1}}, \quad n \in \{\beta^{p-1}, \beta^{p-1}+1, \dots, \beta^p - 1\}.
+\]
+The largest number in this set is:
+\[
+M_{\text{max}} \times \beta^{e-1} = \frac{\beta^p - 1}{\beta^{p-1}} \cdot \beta^{e-1} = \left(\beta - \frac{1}{\beta^{p-1}}\right) \beta^{e-1} = \beta^e - \beta^{e-p}.
+\]
+This number is less than \( x \), and there is no normalized FPN between this number and \( x \) because any number with exponent \( e-1 \) is at most this value, and any number with exponent \( e \) is at least \( x \). Therefore,
+\[
+Z_L = \beta^e - \beta^{e-p}.
+\]
+
+Then we compute:
+\[
+x - Z_L = \beta^e - (\beta^e - \beta^{e-p}) = \beta^{e-p},
+\]
+and
+\[
+Z_R - x = (\beta^e + \beta^{e-p+1}) - \beta^e = \beta^{e-p+1}.
+\]
+Thus,
+\[
+Z_R - x = \beta^{e-p+1} = \beta \cdot \beta^{e-p} = \beta (x - Z_L).
+\]
+This completes the proof.
+
+
+\section*{IV. Adjacent FPNs for \( x = 3/5 \) under IEEE 754 Single-Precision}
+
+Under the IEEE 754 single-precision protocol, the parameters are:
+\begin{itemize}
+\item Base \(\beta = 2\)
+\item Precision \(p = 24\) (including the implicit leading bit)
+\item Exponent range: \(L = -126\), \(U = 127\)
+\end{itemize}
+
+From II, we know \(\dfrac35 = (1.001100110011\cdots)_2 \times 2^{-1}\). Thus, the exponent is \(e = -1\), and the exponent field is \(-1 + 127 = 126\), represented in binary as \(01111110\).
+
+The significand \(s = 1.2\) in decimal, so \(s - 1 = 0.2\). The integer value for the fraction part is computed as \(k = \lfloor (s-1) \times 2^{23} \rfloor = \lfloor 0.2 \times 8388608 \rfloor = \lfloor 1677721.6 \rfloor = 1677721\). Thus, the two adjacent normalized FPNs are:
+\begin{align*}
+Z_L &= \left(1 + \frac{1677721}{2^{23}}\right) \times 2^{-1} \\
+Z_R &= \left(1 + \frac{1677722}{2^{23}}\right) \times 2^{-1}
+\end{align*}
+
+In IEEE 754 binary format:
+\begin{itemize}
+\item \(Z_L\): sign bit \(0\), exponent \(01111110\), fraction \(00110011001100110011001\)
+\item \(Z_R\): sign bit \(0\), exponent \(01111110\), fraction \(00110011001100110011010\)
+\end{itemize}
+
+The value \(\text{fl}(x)\) is the rounded value of \(x\) under the round-to-nearest mode. Since \(x\) is closer to \(Z_R\) than to \(Z_L\), we have \(\text{fl}(x) = Z_R\).
+
+The absolute error is \(|Z_R - x| = 0.4 \times 2^{-24}\). The relative roundoff error is:
+\[
+\frac{|Z_R - x|}{|x|} = \frac{0.4 \times 2^{-24}}{0.6} = \frac{2}{3} \times 2^{-24} = \frac{2^{-23}}{3}
+\]
+
+\section*{V. }
+
+
+\section*{VI. }
+
+\section*{VII. }
+
+
+\section*{VIII. }
+
+% ===============================================
+% \section*{ \center{\normalsize {Acknowledgement}} }
+% Give your acknowledgements here(if any).
+
+
+% \printbibliography
+
+% If you are not familiar with \texttt{bibtex}, 
+% it is acceptable to put a table here for your references.
+\end{document}
